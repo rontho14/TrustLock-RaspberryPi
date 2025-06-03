@@ -29,12 +29,6 @@ O **TrustLock** é uma fechadura eletrônica inteligente com foco em segurança 
 
 ---
 
-## 📐 Diagrama de Blocos
-
-*(Inserir imagem do diagrama de blocos, se disponível)*
-
----
-
 ## ✅ Funcionalidades
 
 - Autenticação por senha (via teclado)
