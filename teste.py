@@ -74,6 +74,18 @@ while True:
     if  not access_granted and (current_time - last_activity_time > inactive_timeout):
         display.show()
         
+    # RFID sempre ativo (independente do modo senha)
+    uid = check_rfid()
+    if uid and not access_granted:
+        display_message("Acesso Liberado")
+        print(f"UID: {uid}")
+        beep(3, 0.1, 0.1)
+        open_lock()  # <- Fechadura acionada
+        access_granted_time = current_time
+        access_granted = True
+        last_activity_time = current_time
+
+
     
     
 
