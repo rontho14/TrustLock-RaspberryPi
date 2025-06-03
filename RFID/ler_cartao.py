@@ -16,3 +16,14 @@ def read_card():
             return uid
         return None
     
+def main():
+    print("Aproxime o cartao ou token para obter o UID...")
+    
+    while True:
+        # Verifica se ha um cartao proximo
+        uid = read_card()
+        if uid:
+            print("UID lido: {}".format(uid))
+        utime.sleep(0.5)    # Aguarda antes de tentar ler novamente
+        
+main()
