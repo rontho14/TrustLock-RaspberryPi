@@ -37,6 +37,12 @@ def beep(times, duration_on=0.05, duration_off=0.05):
         buzzer.off()
         utime.sleep(duration_off)
         
+def display_message(line1="", line2=""):
+    display.fill(0)
+    display.text(line1, 0, 0, 1)
+    display.text(line2, 0, 10, 1)
+    display.show()
+
 
 
 
