@@ -54,6 +54,11 @@ def check_rfid():
         print("RFID error: ", e)
         return None
         
+def open_lock(duration=5):
+    lock.on()
+    utime.sleep(duration)
+    lock.off()
+    
 
         
 
