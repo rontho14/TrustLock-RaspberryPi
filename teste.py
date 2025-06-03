@@ -97,6 +97,48 @@ while True:
             display_message("Aproxime RFID", "ou digite senha")
             last_activity_time = utime.time()
 
+    # Teclado
+    if keys:
+        for key in keys:
+            print(f"Tecla pressionada: {key}")
+            last_activity_time = current_time
+
+            # Se não estava no modo senha, já entra ao pressionar qualquer tecla
+            if not password_entering:
+                password_entering = True
+                entered_password = ""
+                password_start_time = current_time
+                display_message("Digite a senha")
+
+            # Se já está no modo senha, processa as teclas digitadas
+            if password_entering:
+                if key in "1234567890":
+                    entered_password += key
+                    display_message("Senha:", "*" * len(entered_password))
+                    password_start_time = current_time  # Reinicia timeout a cada tecla
+                elif key == "*":  # Apagar tudo
+                    entered_password = ""
+                    display_message("Digite a senha")
+                    beep(1, 0.1, 0.05)
+                    password_start_time = current_time
+                elif key == "#":  # Confirmar senha
+                    password_entering = False
+                    password_start_time = None
+                    display_message("Verificando...")
+
+                    if entered_password == correct_password:
+                        display_message("Acesso Liberado")
+                        beep(3, 0.1, 0.1)
+                        open_lock()  # <- Fechadura acionada
+                        access_granted_time = current_time
+                        access_granted = True
+                    else:
+                        display_message("Senha incorreta")
+                        beep(2, 0.3, 0.3)
+
+                    entered_password = ""
+
+    utime.sleep_ms(10)
 
     
     
