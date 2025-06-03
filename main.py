@@ -47,3 +47,15 @@ def check_rfid():
     except Exception as e:
         print("RFID error:", e)
     return None
+
+# ---- ESTADO DO SISTEMA ----
+password_entering = False
+entered_password = ""
+password_start_time = None
+correct_password = "12345"
+last_activity_time = utime.time()
+inactive_timeout = 7
+password_timeout = 7
+access_granted_time = None
+access_granted = False
+display_cleared = False
