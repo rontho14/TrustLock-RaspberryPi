@@ -59,3 +59,96 @@ password_timeout = 7
 access_granted_time = None
 access_granted = False
 display_cleared = False
+
+# ---- MENSAGEM INICIAL ----
+display_message("Aproxime RFID", "ou digite senha")
+print("Aproxime um cartão RFID ou digite senha")
+
+# ---- LOOP PRINCIPAL ----
+while True:
+    keys = keyboard.get_pressed_keys()
+    current_time = utime.time()
+
+    # Limpa após acesso
+    if access_granted and (current_time - access_granted_time >= 10):
+        display.fill(0)
+        display.show()
+        access_granted = False
+        display_cleared = True
+
+    # Limpa após inatividade
+    if not access_granted and (current_time - last_activity_time > inactive_timeout):
+        if not display_cleared:
+            display.fill(0)
+            display.show()
+            display_cleared = True
+
+    # Mostra mensagem se tela limpa e houve interação
+    if display_cleared:
+        if keys or check_rfid():
+            display_message("Aproxime RFID", "ou digite senha")
+            display_cleared = False
+            last_activity_time = current_time
+
+    # RFID sempre ativo
+    uid = check_rfid()
+    if uid and not access_granted:
+        display_message("Acesso Liberado")
+        print(f"UID: {'-'.join([str(x) for x in uid])}")
+        beep(3, 0.1, 0.1)
+        open_lock()
+        access_granted_time = current_time
+        access_granted = True
+        last_activity_time = current_time
+
+    # Timeout de senha
+    if password_entering and password_start_time is not None:
+        if current_time - password_start_time > password_timeout:
+            display_message("Tempo esgotado")
+            beep(2, 0.2, 0.2)
+            password_entering = False
+            entered_password = ""
+            password_start_time = None
+            utime.sleep(1)
+            display_message("Aproxime RFID", "ou digite senha")
+            last_activity_time = utime.time()
+
+    # Teclado
+    if keys:
+        for key in keys:
+            print(f"Tecla pressionada: {key}")
+            last_activity_time = current_time
+            if not password_entering:
+                password_entering = True
+                entered_password = ""
+                password_start_time = current_time
+            if password_entering:
+                if key in "1234567890":
+                    entered_password += key
+                    display_message("Senha:", "*" * len(entered_password))
+                    password_start_time = current_time
+                elif key == "*":
+                    entered_password = ""
+                    display_message("Digite a senha")
+                    beep(1, 0.1, 0.05)
+                    password_start_time = current_time
+                elif key == "#":
+                    password_entering = False
+                    password_start_time = None
+                    display_message("Verificando...")
+                    if entered_password == correct_password:
+                        display_message("Acesso Liberado")
+                        beep(3, 0.1, 0.1)
+                        open_lock()
+                        access_granted_time = current_time
+                        access_granted = True
+                    else:
+                        display_message("Senha incorreta")
+                        beep(2, 0.3, 0.3)
+                    entered_password = ""
+
+    utime.sleep_ms(10)
+
+
+
+
