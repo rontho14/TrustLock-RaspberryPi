@@ -43,6 +43,18 @@ def display_message(line1="", line2=""):
     display.text(line2, 0, 10, 1)
     display.show()
 
+def check_rfid():
+    try:
+        status, _ = reader.request(reader.REQIDL)
+        if status == reader.OK:
+            status, uid = reader.anticoll()
+            if status == reader.OK:
+                return uid
+    except Exception as e:
+        print("RFID error: ", e)
+        return None
+        
 
+        
 
 
