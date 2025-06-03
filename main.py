@@ -28,3 +28,22 @@ def open_lock(duration=5):
     lock.on()
     utime.sleep(duration)
     lock.off()
+    
+# ---- TECLADO MATRICIAL ----
+from Teclado.keyboard import MatrixKeyboard
+rows_pins = [6, 9, 10, 11]
+cols_pins = [12, 13, 14, 15]
+debounce_time = 5
+keyboard = MatrixKeyboard(rows_pins, cols_pins, debounce_time)
+
+# ---- RFID MFRC522 ----
+def check_rfid():
+    try:
+        (stat, tag_type) = reader.request(reader.REQIDL)
+        if stat == reader.OK:
+            (stat, raw_uid) = reader.anticoll()
+            if stat == reader.OK:
+                return raw_uid
+    except Exception as e:
+        print("RFID error:", e)
+    return None
