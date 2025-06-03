@@ -84,6 +84,18 @@ while True:
         access_granted_time = current_time
         access_granted = True
         last_activity_time = current_time
+        
+     # Timeout de senha
+    if password_entering and password_start_time is not None:
+        if current_time - password_start_time > password_timeout:
+            display_message("Tempo esgotado")
+            beep(2, 0.2, 0.2)
+            password_entering = False
+            entered_password = ""
+            password_start_time = None
+            utime.sleep(1)
+            display_message("Aproxime RFID", "ou digite senha")
+            last_activity_time = utime.time()
 
 
     
