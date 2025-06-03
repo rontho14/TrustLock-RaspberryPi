@@ -30,4 +30,13 @@ password_timeout = 7
 access_granted_time = None
 access_granted = False
 
+def beep(times, duration_on=0.05, duration_off=0.05):
+    for _ in range(times):
+        buzzer.on()
+        utime.sleep(duration_on)
+        buzzer.off()
+        utime.sleep(duration_off)
+        
+
+
 
