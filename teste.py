@@ -59,6 +59,23 @@ def open_lock(duration=5):
     utime.sleep(duration)
     lock.off()
     
+print("Aproxime um cartão RFID ou digite senha")
+display_message("Aproxime RFID", "ou digite senha")
+
+while True:
+    keys = keyboard.get_pressed_keys()
+    current_time = utime.time()
+    
+    # Limpa apos acesso
+    display.show()
+    access_granted = False
+    
+    # Limpa apos inatividade
+    if  not access_granted and (current_time - last_activity_time > inactive_timeout):
+        display.show()
+        
+    
+    
 
         
 
