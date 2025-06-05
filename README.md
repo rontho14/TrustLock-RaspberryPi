@@ -14,10 +14,10 @@ O **TrustLock** é uma fechadura eletrônica inteligente com foco em segurança 
 
 - Raspberry Pi Pico
 - Display OLED (I2C)
-- Teclado 4x4
+- Teclado Matricial 4x4
 - Sensor RFID (MFRC522)
 - Buzzer piezoelétrico
-- Trava solenoide 5V
+- Trava solenoide 12V
 - Caixa impressa em 3D
 
 ### 💻 Software
@@ -53,8 +53,8 @@ O **TrustLock** é uma fechadura eletrônica inteligente com foco em segurança 
 ### Requisitos Técnicos (TR)
 
 - TR-1: Alimentação constante em laboratório
-- TR-3: Alimentar o Pico com 12V
-- TR-4: Alimentar solenoide com 5V
+- TR-3: Alimentar o Pico com 5V
+- TR-4: Alimentar a trava solenoide com 12V
 - TR-6: GPIO para todos os sensores/atuadores
 - TR-8: Uso de MicroPython
 
@@ -66,7 +66,7 @@ O **TrustLock** é uma fechadura eletrônica inteligente com foco em segurança 
 2. Escolha e teste dos componentes
 3. Prototipação individual dos dispositivos
 4. Integração dos módulos com MicroPython
-5. Montagem final em perfboard e caixa 3D
+5. Montagem final em perfboard (solda) e caixa 3D
 6. Testes de validação
 
 ---
@@ -82,7 +82,7 @@ O **TrustLock** é uma fechadura eletrônica inteligente com foco em segurança 
 
 ## 🔮 Melhorias Futuras
 
-- Integração com app ou web para cadastro de usuários
+- Integração com app ou web para gestão remota
 - Banco de dados para logs de acesso
 - Fonte portátil (bateria)
 - Autenticação multifator ou biometria
