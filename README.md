@@ -101,3 +101,9 @@ O **TrustLock** é uma fechadura eletrônica inteligente com foco em segurança 
 ## 📅 Versão
 
 **V1.0.0 – 2025**
+
+---
+
+## 🎥 Video Explicativo
+
+https://youtu.be/hwjukEKiptg?si=9EQ3IkaMXCrmNkwV
